@@ -97,6 +97,53 @@ window.addEventListener('DOMContentLoaded', () => {
 
     setClock('.timer', dedline);
 
+    //модальное окно
+
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalCloseBtn = document.querySelector('[data-close]');
+
+    //переберем кнопки
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.classList.add('show');
+            modal.classList.remove('hide');
+            //modal.classList.toggle('show');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+
+    /*  //обработчики события (открыть и закрыть)
+     modalTrigger.addEventListener('click', () => {
+         modal.classList.toggle('show');
+         document.body.style.overflow = 'hidden';
+     }); */
+
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    //закрытие при клике на подложку
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    //esc
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === "Escape" && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+
+
 
 });
 
